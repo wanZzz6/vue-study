@@ -1,0 +1,30 @@
+<div id="app">
+  <p>{{counter}}</p>
+  <p k-text="counter"></p>
+  <p k-html="desc"></p>
+  <button @click="onclick">button</button>
+  <p>{{show}}</p>
+  双向绑定：<input type="text" k-model="foo" />
+  <p>{{foo}}</p>
+</div>
+<!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+<script src="./kvue.js"></script>
+<script>
+  const app = new KVue({
+    el: "#app",
+    data: {
+      counter: 1,
+      desc: '<span style="color:red">冬瓜冬瓜我是西瓜</span>',
+      foo: 'foo',
+      show: ''
+    },
+    methods: {
+      onclick() {
+        this.show = "点击才显示";
+      },
+    },
+  });
+  setInterval(() => {
+    app.counter++;
+  }, 1000);
+</script>
