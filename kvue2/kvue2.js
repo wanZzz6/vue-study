@@ -87,7 +87,7 @@ class KVue {
   $mount(el) {
     this.$el = document.querySelector(el);
 
-    const updateCompunent = () => {
+    const updateComponent = () => {
       //   // 执行渲染函数
       //   const { render } = this.$options;
       //   const el = render.call(this);
@@ -103,7 +103,7 @@ class KVue {
       this._update(vnode);
     };
 
-    new Watcher(this, updateCompunent);
+    new Watcher(this, updateComponent);
   }
 
   $createElement(tag, props, children) {
@@ -116,6 +116,7 @@ class KVue {
     if (!preVnode) {
       this.__patch__(this.$el, vnode);
     } else {
+      // update
       this.__patch__(preVnode, vnode);
     }
   }
@@ -130,9 +131,6 @@ class KVue {
       const el = this.createElm(vnode); // 递归创建
       parent.insertBefore(el, refElm);
       parent.removeChild(oldVnode);
-
-      // 保存vnode
-      this._vnode = vnode;
     } else {
       // update`
       // 获取dom
@@ -140,34 +138,36 @@ class KVue {
       if (oldVnode.tag === vnode.tag) {
         // props
 
-        // childern
+        // children
         const oldCh = oldVnode.children;
         const newCh = vnode.children;
 
         if (typeof newCh === "string") {
-          if (typeof newCh === "string") {
+          if (typeof oldCh === "string") {
             // 文本更新
             if (newCh !== oldCh) {
               el.textContent = newCh;
-            } else {
-              el.textContent = newCh;
             }
           } else {
-            // 新的是数组
-            // 老的是文本
-            if (typeof oldCh === "string") {
-              // 清空文本
-              el.innerHTML = "";
-              newCh.forEach((vnode) => {
-                this.createElm(vnode);
-              });
-            } else {
-              this.updateChildren(el, oldCh, newCh);
-            }
+            el.textContent = newCh;
+          }
+        } else {
+          // 新的是数组
+          // 老的是文本
+          if (typeof oldCh === "string") {
+            // 清空文本
+            el.innerHTML = "";
+            newCh.forEach((vnode) => {
+              this.createElm(vnode);
+            });
+          } else {
+            this.updateChildren(el, oldCh, newCh);
           }
         }
       }
     }
+    // 保存vnode
+    this._vnode = vnode;
   }
   createElm(vnode) {
     const el = document.createElement(vnode.tag);
@@ -178,7 +178,7 @@ class KVue {
     }
     // children
     if (vnode.children) {
-      if (typeof vnode.children == "string") {
+      if (typeof vnode.children === "string") {
         el.textContent = vnode.children;
       } else {
         // 子元素
@@ -202,6 +202,7 @@ class KVue {
       this.__patch__(oldCh[i], newCh[i]);
     }
 
+    // newCh若是更长的那个，新增
     if (newCh.length > oldCh.length) {
       newCh.slice(len).forEach((vnode) => {
         const el = this.createElm(vnode);

@@ -23,13 +23,11 @@
       if (this.counter !== 1){
         items = ['a', 'b', 'c', 'd']
       }
-      console.log(h)
-      console.log(items.map(item => {h('p', null, item)}))
-      return h('div', null, items.map(item => {h('p', null, item)}))
+      return h('div', null, items.map(item =>  h('p', null, item)))
     },
   });
   setInterval(() => {
-    // app.counter++;
-    app.items.push('d')
+    app.counter++
+    // app.items.push('d')
   }, 1000);
 </script>
