@@ -6,6 +6,7 @@ export default class ConsumerPage extends Component {
     return (
       <div>
         <h3>ConsumerPage</h3>
+        {/* 嵌套使用 */}
         <Context.Consumer>
           {theme => {
             return (

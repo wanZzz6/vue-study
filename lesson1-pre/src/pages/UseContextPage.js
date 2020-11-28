@@ -2,6 +2,7 @@ import React from "react";
 import {Context, UserContext} from "../Context";
 
 export default function UseContextPage(props) {
+  // 可以订阅多个
   const theme = React.useContext(Context);
   const user = React.useContext(UserContext);
 
