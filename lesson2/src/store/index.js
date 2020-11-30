@@ -1,4 +1,4 @@
-import {createStore} from "redux";
+import { createStore } from "../kredux/";
 
 // 定义修改规则
 function countReducer(state = 0, action) {
