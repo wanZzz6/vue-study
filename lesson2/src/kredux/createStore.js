@@ -1,4 +1,9 @@
-export default function createStore(reducer) {
+export default function createStore(reducer, enhancer) {
+  // 如果需要加强
+  if (enhancer) {
+    return enhancer(createStore)(reducer);
+  }
+
   let currentState;
   let currentListeners = [];
 
@@ -9,7 +14,7 @@ export default function createStore(reducer) {
   function dispatch(action) {
     currentState = reducer(currentState, action);
     // state改变，执行订阅的函数
-    currentListeners.forEach(listener => listener());
+    currentListeners.forEach((listener) => listener());
   }
 
   // 订阅
@@ -22,11 +27,11 @@ export default function createStore(reducer) {
     };
   }
 
-  dispatch({type: "REDUX/QQQQQQQQQQQQQQQQQQq"});
+  dispatch({ type: "REDUX/QQQQQQQQQQQQQQQQQQq" });
 
   return {
     getState,
     dispatch,
-    subscribe
+    subscribe,
   };
 }
