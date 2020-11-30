@@ -1,5 +1,5 @@
-// import { createStore, applyMiddleware } from "redux";
-import {createStore, applyMiddleware} from "../kredux/";
+// import { createStore, applyMiddleware, combineReducers } from "redux";
+import {createStore, applyMiddleware, combineReducers} from "../kredux/";
 // import thunk from "redux-thunk";
 // import logger from "redux-logger";
 import isPromise from "is-promise";
@@ -18,7 +18,7 @@ function countReducer(state = 0, action) {
 }
 
 const store = createStore(
-  countReducer,
+  combineReducers({ count: countReducer }),
   // 安装中间件
   applyMiddleware(promise, thunk, logger)
 );
