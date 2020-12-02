@@ -20,6 +20,11 @@ export default class ReduxPage extends Component {
     store.dispatch({ type: "ADD" });
   };
 
+  add2 = () => {
+    // 修改状态
+    store.dispatch({ type: "ADD2", payload: 100 });
+  };
+
   asyAdd = () => {
     // setTimeout(() => {
     //   store.dispatch({type: "ADD"});
@@ -49,6 +54,7 @@ export default class ReduxPage extends Component {
         <button onClick={this.add}>add</button>
         <button onClick={this.asyAdd}>asyAdd</button>
         <button onClick={this.promiseMinus}>promiseMinus</button>
+        <button onClick={this.add2}>{store.getState().count2.num}</button>
       </div>
     );
   }
