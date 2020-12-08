@@ -21,7 +21,7 @@ export const routes = [
     component: LoginPage
   },
   {
-    component: _404Page
+    component: HomePage
   }
 ];
 
@@ -32,7 +32,15 @@ export default function Routes(props) {
       <Link to="/user">用户中心</Link>
       <Link to="/login">登录</Link>
 
+
       <Switch>
+        {routes.map(Rt =>
+          Rt.auth ? (
+            <Rt.auth key={Rt.path + "route"} {...Rt} />
+          ) : (
+            <Route key={Rt.path + "route"} {...Rt} />
+          )
+        )}
         {/* <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <PrivateRoute path="/user" component={UserPage} />
