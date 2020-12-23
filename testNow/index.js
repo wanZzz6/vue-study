@@ -2,6 +2,24 @@ const path = require('path')
 
 module.exports = class TestNow{
 
+    /**
+     * 
+     * @param {*} methodName 
+     * @param {*} classFile 
+     */
+    getTextSource(methodName, classFile){
+        console.log('getTextSource', methodName)
+
+        return `
+        test('${'TEXT ' + methodName }', () => {
+            const ${isClass ? '{' + methodName + '}' : methodName} = require('${'../' + classFile}')
+            const ret = ${methodName}()
+            //  expect(ret)
+            // .toBe('test return')
+        })
+        `
+    }
+
 /**
  * 生成测试文件名
  * @param {*} filename 代码文件名
