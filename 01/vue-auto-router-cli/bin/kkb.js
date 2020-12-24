@@ -13,5 +13,10 @@ program
   .command("refresh")
   .description("refresh routers...")
   .action(require("../lib/refresh"));
+  
+program
+  .command("serve")
+  .description("serve")
+  .action(require("../lib/serve"));
 
 program.parse(process.argv);
