@@ -8,3 +8,10 @@ program
   // .action(name => console.log('init '+ name));
   // 传入可执行函数
   .action(require("../lib/init"));
+
+program
+  .command("refresh")
+  .description("refresh routers...")
+  .action(require("../lib/refresh"));
+
+program.parse(process.argv);
